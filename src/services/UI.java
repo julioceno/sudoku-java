@@ -1,20 +1,39 @@
 package services;
 
+import board.NumberBoard;
+import enums.Color;
+
 public class UI {
     private static int GRID_ROWS = 9;
-    private static int GRID_COLUMNS = 9;
 
-    public static void printGrid() {
-        for (int i = 0 ; i < GRID_COLUMNS ; i++) {
-            printRows(i);
-            createDivison(i);
+    public static void printGrid(NumberBoard[][] matrixNumbers) {
+        for (int i = 0 ; i < matrixNumbers.length ; i++) {
+            printRows(i, matrixNumbers[i]);
+            printDivision(i);
         }
         System.out.println("   a   b   c   d   e   f   g   h   i");
     }
-    private static void printRows(int row) {
+
+    private static void printRows(int row, NumberBoard[] numberBoard) {
         System.out.print(row + "|");
-        for (int i = 0 ; i < GRID_ROWS ; i++) {
-            System.out.print(" - ");
+        for (int i = 0 ; i < numberBoard.length ; i++) {
+            NumberBoard number = numberBoard[i];
+            Integer value = number.getValue();
+
+            if (value != null) {
+                if (number.getSpecial()) {
+                    System.out.print(Color.WHITE_BOLD_BRIGHT);
+                    System.out.print(" " + value + " ");
+                    System.out.print(Color.RESET);
+                }
+                else {
+                    System.out.print(" " + value + " ");
+                }
+            }
+            else {
+                System.out.print(" - ");
+            }
+
             if (isSpecialDivision(i)) {
                 System.out.print("║");
             }
@@ -24,7 +43,7 @@ public class UI {
         }
     }
 
-    private static void createDivison(int index) {
+    private static void printDivision(int index) {
         System.out.println("");
         System.out.print("  ");
         for (int i = 0 ; i < GRID_ROWS; i++) {
