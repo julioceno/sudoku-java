@@ -6,8 +6,8 @@ public class UI {
 
     public static void printGrid() {
         for (int i = 0 ; i < GRID_COLUMNS ; i++) {
-            printRows(i + 1);
-            createDivison(i + 1);
+            printRows(i);
+            createDivison(i);
         }
         System.out.println("   a   b   c   d   e   f   g   h   i");
     }
@@ -15,26 +15,21 @@ public class UI {
         System.out.print(row + "|");
         for (int i = 0 ; i < GRID_ROWS ; i++) {
             System.out.print(" - ");
-            System.out.print("|");
-            if (i == 2) {
-                System.out.print("|");
+            if (isSpecialDivision(i)) {
+                System.out.print("║");
             }
-
-            if (i == 5) {
+            else {
                 System.out.print("|");
             }
         }
     }
 
-    private static void createDivison(int row) {
+    private static void createDivison(int index) {
         System.out.println("");
         System.out.print("  ");
         for (int i = 0 ; i < GRID_ROWS; i++) {
-            if (row == 3) {
-                System.out.print(" ═  ");
-            }
-            else if (row == 6) {
-                System.out.print(" ═  ");
+            if (isSpecialDivision(index)) {
+                System.out.print(" ══ ");
             }
             else {
                 System.out.print(" ─  ");
@@ -43,7 +38,8 @@ public class UI {
         System.out.println("");
     }
 
-    private static boolean isSpecialDivision(int currentIndex) {
-        return true;
+    private static boolean isSpecialDivision(int index) {
+        if (index == 2 || index == 5) return true;
+        return false;
     }
 }
